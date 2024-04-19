@@ -5,9 +5,11 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reflection", "Reflection\Reflection.csproj", "{2AC817A0-9016-4B9E-A633-F269DC7BE1FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegates", "Delegates\Delegates.csproj", "{AFBFB006-1993-4F9B-929F-82D059E49C4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delegates", "Delegates\Delegates.csproj", "{AFBFB006-1993-4F9B-929F-82D059E49C4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events", "Events\Events.csproj", "{1A17A58F-5C4C-4EE3-BB33-0E38A4BCEED5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events", "Events\Events.csproj", "{1A17A58F-5C4C-4EE3-BB33-0E38A4BCEED5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment1Input", "Assignment1Input\Assignment1Input.csproj", "{82A60066-B769-4373-92DD-F4C6DC383DFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1A17A58F-5C4C-4EE3-BB33-0E38A4BCEED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A17A58F-5C4C-4EE3-BB33-0E38A4BCEED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A17A58F-5C4C-4EE3-BB33-0E38A4BCEED5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82A60066-B769-4373-92DD-F4C6DC383DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82A60066-B769-4373-92DD-F4C6DC383DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82A60066-B769-4373-92DD-F4C6DC383DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82A60066-B769-4373-92DD-F4C6DC383DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

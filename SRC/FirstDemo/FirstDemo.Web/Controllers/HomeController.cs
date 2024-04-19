@@ -15,7 +15,9 @@ namespace FirstDemo.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexModel();
+            model.Message = " from index model";
+            return View(model);
         }
 
         public IActionResult Privacy()
