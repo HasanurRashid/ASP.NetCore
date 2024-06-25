@@ -20,7 +20,8 @@ namespace FirstDemo.Web.Controllers
         public IActionResult Index()
         {
             var model = new IndexModel();
-            model.Message = " from index model";
+            model.Message = " Hello Asp.net core";
+            _logger.LogInformation("I am in index");
             return View(model);
         }
 
