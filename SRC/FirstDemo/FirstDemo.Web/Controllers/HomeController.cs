@@ -32,6 +32,7 @@ namespace FirstDemo.Web.Controllers
         public IActionResult Test()
         {
             var model = new TestModel();
+            model.Email = "hasan6221@gmail.com";
             return View(model);
         }
 
