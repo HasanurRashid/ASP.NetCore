@@ -29,6 +29,21 @@ namespace FirstDemo.Web.Controllers
         {
             return View();
         }
+        public IActionResult Test()
+        {
+            var model = new TestModel();
+            return View(model);
+        }
+
+        [HttpPost,ValidateAntiForgeryToken]
+        public IActionResult Test(TestModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                int x;
+            }
+            return View(model);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
