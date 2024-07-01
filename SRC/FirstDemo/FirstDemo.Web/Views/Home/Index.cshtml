@@ -3,8 +3,29 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+@section Styles
+{
+    <link rel="stylesheet" href="~/scss//home.css" />
+}
 
 <div class="text-center">
     <h1 class="display-4">Welcome @Model.Message</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div>
+    <button class="myBtn">Button 1</button>
+    <button class="myBtn2">Button 2</button>
+    <button>Button 3</button>
+</div>
+
+<div class="myDiv">
+    <button> Another Button</button>
+</div>
+
+<p class="myPara"> This is a paragraph</p>
+
+@section Scripts
+{
+
+}

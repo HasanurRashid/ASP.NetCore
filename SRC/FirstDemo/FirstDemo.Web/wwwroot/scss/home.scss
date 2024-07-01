@@ -1,0 +1,36 @@
+﻿
+@import "./_variables.scss";
+
+
+.myBtn {
+    background-color: $btnColor;
+}
+
+.myBtn2 {
+    background-color: $btnColor;
+}
+
+.myDiv {
+    background-color: aquamarine;
+
+    Button {
+        background-color: burlywood;
+
+        &:hover {
+            background-color: coral;
+        }
+    }
+}
+
+@mixin appyColor($color: red, $fontColor: white)
+{
+    background-color: $color;
+    color: $fontColor;
+}
+
+.myPara{
+
+    @include appyColor(green, black);
+}
+
+
