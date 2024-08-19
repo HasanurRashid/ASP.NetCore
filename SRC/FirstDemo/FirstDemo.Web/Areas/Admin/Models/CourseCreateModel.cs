@@ -19,6 +19,7 @@ namespace FirstDemo.Web.Areas.Admin.Models
 
         internal void Resolve(ILifetimeScope scope)
         {
+            
             _scope = scope;
             _courseManagementService = _scope.Resolve<ICourseManagementService>();
         }

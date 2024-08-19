@@ -22,6 +22,7 @@ namespace FirstDemo.Web.Areas.Admin.Controllers
        
         public IActionResult Create()
         {
+            var Test = "Test";
             var model = _scope.Resolve<CourseCreateModel>();
             return View();
         }
