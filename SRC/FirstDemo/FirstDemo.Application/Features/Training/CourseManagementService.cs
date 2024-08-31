@@ -1,5 +1,7 @@
 ﻿using FirstDemo.Domain.Entities;
 using FirstDemo.Domain.Features.Training;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,13 @@ namespace FirstDemo.Application.Features.Training
         {
             _unitOfWork = unitOfWork;
         }
-        public void CreateCourse(string title, uint fees, string description)
+        public async Task  CreateCourse(string title, uint fees, string description)
         {
+            bool isDuplicate = await _unitOfWork.CourseRepository.
+                IsTitleDuplicate(title);
+            if (isDuplicate)
+                throw new InvalidOperationException();
+
             Course course = new Course
             {
                 Title = title,
@@ -26,6 +33,11 @@ namespace FirstDemo.Application.Features.Training
             _unitOfWork.CourseRepository.Add(course);
             _unitOfWork.Save();
 
+        }
+
+        public async Task<(IList<Course> records, int total, int totalDisplay)> GetPagedCoursesAsync(int pageIndex, int pageSize, string searchText, string sortBy)
+        {
+            return await _unitOfWork.CourseRepository.GetTableDataAsync(searchText, sortBy,pageIndex,pageSize);
         }
     }
 }

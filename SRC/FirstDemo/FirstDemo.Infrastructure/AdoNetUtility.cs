@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstDemo.Web.Models
+namespace FirstDemo.Infrastructure
 {
     public class AdoNetUtility 
     {
