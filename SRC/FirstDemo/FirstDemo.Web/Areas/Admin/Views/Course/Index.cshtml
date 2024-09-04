@@ -16,8 +16,9 @@
                     <h3 class="card-title">DataTable with default features</h3>
                 </div>
                 <!-- /.card-header -->
+                <partial name="_ResponsePartial" />
                 <div class="card-body">
-                    <table id="course" class="table table-bordered table-striped">
+                    <table id="courses" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Title</th>
@@ -26,6 +27,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        <tbody></tbody>
                         <tfoot>
                             <tr>
                                 <th>Title</th>
@@ -35,6 +37,8 @@
                             </tr>
                         </tfoot>
                     </table>
+                    <partial name="_ModalPartial" />
+
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -61,16 +65,51 @@
 
     <script>
         $(function () {
-            $("#course").DataTable({
+            $("#courses").DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
                     "url": "/Admin/Course/GetCourses"
                 },
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
 
-            }).buttons().container().appendTo('#course_wrapper .col-md-6:eq(0)');
+                columnDefs: [
+                    {
+                        orderable: false,
+                        targets: 3,
+                        render: function (data, type, row) {
+                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/course/Update/${data}'" value='${data}'>
+                                                                <i class="fas fa-pencil-alt">
+                                                                </i>
+                                                                Edit
+                                                            </button>
+                                                            <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
+                                                                <i class="fas fa-trash">
+                                                                </i>
+                                                                Delete
+                                                            </button>`;
+                        }
+                    }
+                ],
+
+                buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#courses_wrapper');
+
+            $('#courses').on('click', '.show-bs-modal', function (event) {
+                let id = $(this).data("id");
+                let modal = $("#modal-default");
+                modal.find('.modal-body p').text('Are you sure you want to delete this record?');
+                $("#deleteId").val(id);
+                $("#deleteForm").attr("action", "/admin/course/Delete");
+                modal.modal('show');
+            });
+
+            $("#deleteButton").click(function () {
+                $("#deleteForm").submit();
+            });
+
+            $("#searchButton").click(function () {
+                $('#courses').DataTable().ajax.reload(null, false);
+            });
         });
     </script>
 }

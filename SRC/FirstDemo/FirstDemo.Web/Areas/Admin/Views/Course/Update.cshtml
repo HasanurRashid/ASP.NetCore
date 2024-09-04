@@ -1,18 +1,19 @@
-﻿@model CourseCreateModel
+﻿@model CourseUpdateModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
 }
 
 <div class="col-md-12">
     <!-- general form elements -->
     <div class="card card-primary">
-        <partial name="_ResponsePartial" />
         <div class="card-header">
-            <h3 class="card-title">Create New Course</h3>
+            <h3 class="card-title">Update Existing Course</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form asp-action="Create" asp-controller="Course" asp-area="Admin" asp-antiforgery="true">
+        <partial name="_ResponsePartial" />
+        <form asp-action="Update" asp-controller="Course" asp-area="Admin" asp-antiforgery="true">
+            <input type="hidden" asp-for="Id" />
             <div class="card-body">
                 <div class="form-group">
                     <label asp-for="Title">Title</label>

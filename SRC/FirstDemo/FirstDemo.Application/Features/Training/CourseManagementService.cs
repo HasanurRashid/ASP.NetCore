@@ -1,4 +1,5 @@
 ﻿using FirstDemo.Domain.Entities;
+using FirstDemo.Domain.Exceptions;
 using FirstDemo.Domain.Features.Training;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Server.IIS.Core;
@@ -17,12 +18,12 @@ namespace FirstDemo.Application.Features.Training
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task  CreateCourse(string title, uint fees, string description)
+        public async Task  CreateCourseAsync(string title, uint fees, string description)
         {
             bool isDuplicate = await _unitOfWork.CourseRepository.
-                IsTitleDuplicate(title);
+                IsTitleDuplicateAsync(title);
             if (isDuplicate)
-                throw new InvalidOperationException();
+                throw new DuplicateTitleException();
 
             Course course = new Course
             {
@@ -30,14 +31,43 @@ namespace FirstDemo.Application.Features.Training
                 Fees = fees,
                 Description = description
             };
-            _unitOfWork.CourseRepository.Add(course);
-            _unitOfWork.Save();
+          await  _unitOfWork.CourseRepository.AddAsync(course);
+          await  _unitOfWork.SaveAsync();
 
+        }
+
+        public async Task DeleteCourseAsync(Guid id)
+        {
+          await  _unitOfWork.CourseRepository.RemoveAsync(id);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<Course> GetCourseAsync(Guid id)
+        {
+            return await _unitOfWork.CourseRepository.GetByIdAsync(id);
         }
 
         public async Task<(IList<Course> records, int total, int totalDisplay)> GetPagedCoursesAsync(int pageIndex, int pageSize, string searchText, string sortBy)
         {
             return await _unitOfWork.CourseRepository.GetTableDataAsync(searchText, sortBy,pageIndex,pageSize);
+        }
+
+       
+
+        public async Task UpdateCourseAsync(Guid id, string title, string description, uint fees)
+        {
+            bool isDuplicate = await _unitOfWork.CourseRepository.
+               IsTitleDuplicateAsync(title, id);
+            if (isDuplicate)
+                throw new DuplicateTitleException();
+            var course = await GetCourseAsync(id);
+            if(course is not null)
+            {
+                course.Title = title;
+                course.Description = description;
+                course.Fees = fees;
+            }
+            await _unitOfWork.SaveAsync();
         }
     }
 }

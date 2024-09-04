@@ -15,7 +15,7 @@ namespace FirstDemo.Infrastructure
     {
         public ICourseRepository CourseRepository { get; private set; }
         public ApplicationUnitOfWork(ICourseRepository courseRepository,
-            ApplicationDbContext dbContext) : base(dbContext)
+            IApplicationDbContext dbContext) : base((DbContext)dbContext)
         {
             CourseRepository = courseRepository;
         }

@@ -16,15 +16,15 @@ namespace FirstDemo.Infrastructure.Repositories
         }
 
        
-        public async Task<bool> IsTitleDuplicate(string title, Guid? id = null)
+        public async Task<bool> IsTitleDuplicateAsync(string title, Guid? id = null)
         {
             if (id.HasValue)
             {
-                return await GetCountAsync(x => x.Id == id.Value && x.Title == title) > 0;
+                return (await GetCountAsync(x => x.Id != id.Value && x.Title == title)) > 0;
             }
             else
             {
-                return await GetCountAsync(x => x.Title == title) > 0;
+                return (await GetCountAsync(x => x.Title == title)) > 0;
             }
         }
         public async Task<(IList<Course> records, int total, int totalDisplay)>

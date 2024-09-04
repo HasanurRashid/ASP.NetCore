@@ -23,9 +23,9 @@ namespace FirstDemo.Web.Areas.Admin.Models
             _scope = scope;
             _courseManagementService = _scope.Resolve<ICourseManagementService>();
         }
-        internal void CreateCourse()
+        internal async Task CreateCourseAsync()
         {
-           _courseManagementService.CreateCourse(Title, Fees, Description);
+          await _courseManagementService.CreateCourseAsync(Title, Fees, Description);
         }
     }
 }

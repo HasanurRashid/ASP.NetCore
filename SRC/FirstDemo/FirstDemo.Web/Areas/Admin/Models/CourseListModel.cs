@@ -44,6 +44,9 @@ namespace FirstDemo.Web.Areas.Admin.Models
             };
         }
 
-
+        internal async Task DeleteCourseAsync(Guid id)
+        {
+          await  _courseService.DeleteCourseAsync(id);
+        }
     }
 }
