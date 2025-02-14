@@ -1,0 +1,52 @@
+﻿using System.Diagnostics;
+using FirstDemo.Web.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace FirstDemo.Web.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly ISmsSender _smsSender;
+
+        public HomeController(ILogger<HomeController> logger, IEmailSender emailSender, ISmsSender smsSender)
+        {
+            _logger = logger;
+            _emailSender = emailSender;
+            _smsSender = smsSender;
+        }
+
+        public IActionResult Index()
+        {
+            var model = new IndexModel();
+            model.Message = " for restarting the class again";
+            _logger.LogInformation("I am in index");
+            return View(model);
+        }
+
+        public IActionResult Test()
+        {
+            var model = new TestModel();
+            return View(model);
+        }
+
+        [HttpPost,ValidateAntiForgeryToken]
+        public IActionResult Test(TestModel model)
+        {
+             model.Email = "hasan6221@gmail.com";
+            return View(model);
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+}
