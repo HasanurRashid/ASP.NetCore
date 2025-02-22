@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FirstDemo.Web;
 using Serilog;
 using Serilog.Events;
+using FirstDemo.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
