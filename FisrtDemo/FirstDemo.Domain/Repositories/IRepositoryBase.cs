@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FirstDemo.Domain
+namespace FirstDemo.Domain.Repositories
 {
     public interface IRepositoryBase<TEntity, TKey>
         where TEntity : class, IEntity<TKey>

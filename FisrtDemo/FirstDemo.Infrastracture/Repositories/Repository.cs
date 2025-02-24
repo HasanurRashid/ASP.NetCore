@@ -1,6 +1,6 @@
 ﻿using FirstDemo.Domain.Entities;
 using FirstDemo.Domain;
-using Microsoft.Data.SqlClient;
+//using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;

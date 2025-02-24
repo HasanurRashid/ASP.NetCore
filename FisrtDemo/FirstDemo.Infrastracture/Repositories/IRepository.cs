@@ -5,8 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using FirstDemo.Domain;
 using Microsoft.EntityFrameworkCore.Query;
+using FirstDemo.Domain.Repositories;
 
 namespace FirstDemo.Application
 {
