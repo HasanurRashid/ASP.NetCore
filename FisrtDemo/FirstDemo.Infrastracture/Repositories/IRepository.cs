@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
 using FirstDemo.Domain.Repositories;
 
-namespace FirstDemo.Application
+namespace FirstDemo.Infrastructure.Repositories
 {
     public interface IRepository<TEntity, TKey> : IRepositoryBase<TEntity, TKey>
         where TEntity : class, IEntity<TKey>

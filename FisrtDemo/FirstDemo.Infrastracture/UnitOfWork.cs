@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstDemo.Application
+namespace FirstDemo.Infrastructure
 {
     public abstract class UnitOfWork : IUnitOfWork
     {

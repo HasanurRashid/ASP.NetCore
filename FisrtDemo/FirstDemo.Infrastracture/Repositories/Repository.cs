@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FirstDemo.Application
+namespace FirstDemo.Infrastructure.Repositories
 {
     public abstract class Repository<TEntity, TKey>
         : IRepository<TEntity, TKey> where TKey : IComparable
