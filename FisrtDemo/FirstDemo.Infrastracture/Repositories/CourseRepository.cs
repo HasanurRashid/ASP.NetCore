@@ -11,7 +11,7 @@ namespace FirstDemo.Infrastructure.Repositories
 {
     public class CourseRepository : Repository<Course, Guid>, ICourseRepository
     {
-        public CourseRepository(DbContext context) : base(context)
+        public CourseRepository(ApplicationDbContext context) : base(context)
         {
         }
     }
