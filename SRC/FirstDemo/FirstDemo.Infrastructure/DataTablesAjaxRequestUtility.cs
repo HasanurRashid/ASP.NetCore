@@ -10,6 +10,7 @@ namespace FirstDemo.Infrastructure
     public class DataTablesAjaxRequestUtility
     {
         private HttpRequest _request;
+        private dynamic _requestBody;
 
         public int Start
         {
@@ -94,15 +95,17 @@ namespace FirstDemo.Infrastructure
         public string GetSortText(string[] columnNames)
         {
             var sortText = new StringBuilder();
+            IEnumerable<KeyValuePair<string, StringValues>> Data = RequestData;
+
             for (var i = 0; i < columnNames.Length; i++)
             {
-                if (RequestData.Any(x => x.Key == $"order[{i}][column]"))
+                if (Data.Any(x => x.Key == $"order[{i}][column]"))
                 {
                     if (sortText.Length > 0)
                         sortText.Append(",");
 
-                    var columnValue = RequestData.Where(x => x.Key == $"order[{i}][column]").FirstOrDefault();
-                    var directionValue = RequestData.Where(x => x.Key == $"order[{i}][dir]").FirstOrDefault();
+                    var columnValue = Data.Where(x => x.Key == $"order[{i}][column]").FirstOrDefault();
+                    var directionValue = Data.Where(x => x.Key == $"order[{i}][dir]").FirstOrDefault();
 
                     var column = int.Parse(columnValue.Value.ToArray()[0]);
                     var direction = directionValue.Value.ToArray()[0];

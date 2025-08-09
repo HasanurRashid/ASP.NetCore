@@ -14,8 +14,9 @@ namespace FirstDemo.Domain.Repositories
         Task<bool> IsTitleDuplicateAsync(string title, Guid? id = null);
 
 
-        Task<(IList<Course> records, int total, int totalDisplay)>
-            GetTableDataAsync(string searchText, string orderBy, int pageIndex, int pageSize);
+        Task<(IList<Course> records, int total, int totalDisplay)> GetTableDataAsync(string searchTitle, uint searchFeesFrom,
+                 uint searchFeesTo, string orderBy, int pageIndex, int pageSize);
 
     }
 }
+

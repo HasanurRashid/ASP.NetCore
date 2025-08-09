@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CourseListModel
+@{
     ViewData["Title"] = "Courses";
 }
 @section Styles
@@ -7,6 +8,51 @@
     <link rel="stylesheet" href="~/Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="~/Admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 }
+<div class="content-header">
+    <div class="col-12">
+        <div class="card card-outline card-primary collapsed-card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-search mr-1"></i>Search Courses</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" asp-for="SearchItem.Title" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Course Fees From</label>
+                            <input type="text" asp-for="SearchItem.CourseFeesFrom" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Course Fees To</label>
+                            <input type="text" asp-for="SearchItem.CourseFeesTo" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button id="searchButton" type="submit" class="btn btn-primary float-right">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.content-header -->
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -65,34 +111,48 @@
 
     <script>
         $(function () {
-            $("#courses").DataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": {
-                    "url": "/Admin/Course/GetCourses"
-                },
+                   $("#courses").DataTable({
+                       processing: true,
+                       serverSide: true,
+                       responsive: true,
+                       lengthChange: false,
+                       autoWidth: false,
+                       ajax: {
+                           url: "/Admin/Course/GetCourses",
+                           type: "POST",
+                          
+                           data: function (d) {
+                               d.SearchItem = {
+                                   Title: $("#SearchItem_Title").val(),
+                                   CourseFeesFrom: $("#SearchItem_CourseFeesFrom").val() === "" ? 0 : $("#SearchItem_CourseFeesFrom").val(),
+                                   CourseFeesTo: $("#SearchItem_CourseFeesTo").val() === "" ? 0 : $("#SearchItem_CourseFeesTo").val()
+                               };
+                              // return JSON.stringify(d);
+                               //console.log(d.SearchItem);
+                           },
+                       },
+                       columnDefs: [
+                           {
+                               orderable: false,
+                               targets: 3,
+                               render: function (data, type, row) {
+                                   return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/course/update/${data}'" value='${data}'>
+                                               <i class="fas fa-pencil-alt">
+                                               </i>
+                                               Edit
+                                           </button>
+                                           <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
+                                               <i class="fas fa-trash">
+                                               </i>
+                                               Delete
+                                           </button>`;
+                               }
+                           }
+                       ],
+                       buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                   }).buttons().container().appendTo('#courses_wrapper');
 
-                columnDefs: [
-                    {
-                        orderable: false,
-                        targets: 3,
-                        render: function (data, type, row) {
-                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/course/Update/${data}'" value='${data}'>
-                                                                <i class="fas fa-pencil-alt">
-                                                                </i>
-                                                                Edit
-                                                            </button>
-                                                            <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
-                                                                <i class="fas fa-trash">
-                                                                </i>
-                                                                Delete
-                                                            </button>`;
-                        }
-                    }
-                ],
 
-                buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#courses_wrapper');
 
             $('#courses').on('click', '.show-bs-modal', function (event) {
                 let id = $(this).data("id");

@@ -7,9 +7,11 @@ namespace FirstDemo.Domain.Features.Training
         Task CreateCourseAsync(string title, uint fees, string description);
         Task DeleteCourseAsync(Guid id);
         Task<Course> GetCourseAsync(Guid id);
+
         Task<(IList<Course> records, int total, int totalDisplay)>
-            GetPagedCoursesAsync(int pageIndex, int pageSize, string searchText, string sortBy);
-       
+            GetPagedCoursesAsync(int pageIndex, int pageSize, string searchTitle,
+            uint searchFeesFrom, uint searchFeesTo, string sortBy);
+
         Task UpdateCourseAsync(Guid id, string title, string description, uint fees);
     }
 }

@@ -42,6 +42,79 @@ namespace FirstDemo.Web.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("169a4106-3052-4a16-bcf7-321330d82507"),
+                            Description = "Test",
+                            Fees = 2000L,
+                            Title = "C#"
+                        },
+                        new
+                        {
+                            Id = new Guid("55ae7105-4608-4036-94a9-c6fff940c4e1"),
+                            Description = "Test 2",
+                            Fees = 3000L,
+                            Title = "Asp.net"
+                        },
+                        new
+                        {
+                            Id = new Guid("700ec20c-4f86-4502-b088-894b64177302"),
+                            Description = "Test 3",
+                            Fees = 3000L,
+                            Title = "PHP"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbae6df5-ce80-4d42-bc90-b3c30a0957c0"),
+                            Description = "Test 4",
+                            Fees = 3000L,
+                            Title = "Entity Framework"
+                        },
+                        new
+                        {
+                            Id = new Guid("e50ce560-fc0f-4774-a15e-f91b7bb8863e"),
+                            Description = "Test 5",
+                            Fees = 3000L,
+                            Title = "Ado.Net"
+                        });
+                });
+
+            modelBuilder.Entity("FirstDemo.Domain.Entities.CourseEnrollment", b =>
+                {
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CourseId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("CourseEnrollments", (string)null);
+                });
+
+            modelBuilder.Entity("FirstDemo.Domain.Entities.Student", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Cgpa")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -240,6 +313,21 @@ namespace FirstDemo.Web.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("FirstDemo.Domain.Entities.CourseEnrollment", b =>
+                {
+                    b.HasOne("FirstDemo.Domain.Entities.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FirstDemo.Domain.Entities.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

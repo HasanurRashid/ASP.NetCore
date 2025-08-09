@@ -5,6 +5,7 @@ namespace FirstDemo.Infrastructure
 {
     public interface IApplicationDbContext
     {
-        DbSet<Course> Courses { get; set; }
+       DbSet<Course> Courses { get; set; }
+       DbSet<Student> Students { get; set; }
     }
 }

@@ -72,11 +72,12 @@ namespace FirstDemo.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        
-        public async Task<JsonResult> GetCourses()
+
+        [HttpPost]
+        public async Task<JsonResult> GetCourses(CourseListModel model)
         {
             var dataTablesModel = new DataTablesAjaxRequestUtility(Request);
-            var model = _scope.Resolve<CourseListModel>();
+            model.Resolve(_scope);
 
             var data = await model.GetPagedCoursesAsync(dataTablesModel);
             return Json(data);

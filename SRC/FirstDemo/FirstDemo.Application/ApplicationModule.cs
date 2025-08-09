@@ -15,8 +15,10 @@ namespace FirstDemo.Application
     {
         protected override void Load(ContainerBuilder builder)
         {
+
             builder.RegisterType<CourseManagementService>().As<ICourseManagementService>()
                 .InstancePerLifetimeScope();
+
 
         }
     }
