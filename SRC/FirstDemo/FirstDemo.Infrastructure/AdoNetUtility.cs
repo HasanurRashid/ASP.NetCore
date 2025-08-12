@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FirstDemo.Infrastructure
 {
-    public class AdoNetUtility 
+    public class AdoNetUtility : IAdoNetUtility
     {
         private readonly DbConnection _connection;
         private readonly int _timeout;

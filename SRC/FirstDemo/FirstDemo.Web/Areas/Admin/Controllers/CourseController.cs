@@ -83,8 +83,24 @@ namespace FirstDemo.Web.Areas.Admin.Controllers
             return Json(data);
         }
 
+        public async Task<JsonResult> GetCourseEnrollments()
+        {
+            CourseEnrollmentListModel model = new();
+            model.Resolve(_scope);
+            model.SearchItem = new CourseEnrollmentSearch
+            {
+                CourseName = "C#",
+                StudentName = "Jalaluddin",
+                EnrollmentDateFrom = new DateTime(2020, 1, 1),
+                EnrollmentDateTo = new DateTime(2030, 1, 1)
+            };
 
-       
+            var data = await model.GetPagedCourseEnrollmentsAsync(1, 10, "CourseName");
+            return Json(data);
+        }
+
+
+
         public async Task<IActionResult> Update(Guid id)
         {
             var model = _scope.Resolve<CourseUpdateModel>();
